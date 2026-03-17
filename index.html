@@ -109,6 +109,12 @@ iframe {
   margin-right: 10px;
 }
 
+/* 強調用 */
+.highlight {
+  color: red;
+  text-decoration: underline;
+}
+
 /* スマホ */
 @media (max-width: 600px) {
   iframe {
@@ -123,7 +129,7 @@ iframe {
 <!-- パスワード画面 -->
 <div id="login">
   <div class="login-box">
-    <h2>🌸 卒園ムービー 🌸</h2>
+    <h2>🌷 卒園ムービー 🌷</h2>
     <p>パスワードを入力してください</p>
     <input type="password" id="pass">
     <br>
@@ -140,15 +146,12 @@ iframe {
     <iframe src="https://drive.google.com/file/d/1M9NsuG-AaI9-kLzVgJh3G1k6JpxUccvg/preview"
     allow="autoplay"></iframe>
 
-    <div class="title">卒園おめでとうムービー 🌸</div>
-
-    <div class="channel">
-      <div class="icon"></div>
-      <div>マリア幼稚園</div>
-    </div>
+    <div class="title">卒園おめでとうムービー 🌷</div>
 
     <div class="desc">
-      個人情報と音楽の書作権保護のために、DVD及びQRコードはご家庭内のみで大切にお楽しみ頂けると幸いです。
+      個人情報と音楽の書作権保護のために、DVD及びQRコードは
+      <span class="highlight">ご家庭内のみ</span>
+      で大切にお楽しみ頂けると幸いです。
     </div>
 
   </div>
@@ -158,7 +161,7 @@ iframe {
 function check() {
   var password = document.getElementById("pass").value;
 
-  if(password === "0000"){  // ←ここ変更
+  if(password === "maria"){
     document.getElementById("login").style.display = "none";
     document.getElementById("main").style.display = "block";
   } else {
