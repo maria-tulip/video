@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>マリア幼稚園 卒園ムービー</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Hiragino Sans", sans-serif;
+  background: linear-gradient(135deg, #ffe4ec, #e0f7ff);
+  color: #444;
+  text-align: center;
+}
+
+/* パスワード画面 */
+#login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-box {
+  background: white;
+  padding: 30px;
+  margin: auto;
+  border-radius: 20px;
+  width: 80%;
+  max-width: 350px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+input {
+  width: 80%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  background: #ffb6c1;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ff8fab;
+}
+
+/* メイン */
+#main {
+  display: none;
+}
+
+/* ヘッダー */
+.header {
+  background: #ffd6e0;
+  padding: 12px;
+  font-weight: bold;
+}
+
+/* コンテンツ */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+iframe {
+  width: 100%;
+  height: 500px;
+  border-radius: 16px;
+  border: none;
+}
+
+.title {
+  font-size: 22px;
+  margin-top: 15px;
+}
+
+.desc {
+  margin-top: 10px;
+  padding: 15px;
+  background: #fff0f5;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.channel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+  background: #ffb6c1;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* スマホ */
+@media (max-width: 600px) {
+  iframe {
+    height: 220px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- パスワード画面 -->
+<div id="login">
+  <div class="login-box">
+    <h2>🌸 卒園ムービー 🌸</h2>
+    <p>パスワードを入力してください</p>
+    <input type="password" id="pass">
+    <br>
+    <button onclick="check()">入る</button>
+  </div>
+</div>
+
+<!-- メイン -->
+<div id="main">
+  <div class="header">マリア幼稚園 卒園ムービー</div>
+
+  <div class="container">
+
+    <iframe src="https://drive.google.com/file/d/1M9NsuG-AaI9-kLzVgJh3G1k6JpxUccvg/preview"
+    allow="autoplay"></iframe>
+
+    <div class="title">卒園おめでとうムービー 🌸</div>
+
+    <div class="channel">
+      <div class="icon"></div>
+      <div>マリア幼稚園</div>
+    </div>
+
+    <div class="desc">
+      個人情報と音楽の書作権保護のために、DVD及びQRコードはご家庭内のみで大切にお楽しみ頂けると幸いです。
+    </div>
+
+  </div>
+</div>
+
+<script>
+function check() {
+  var password = document.getElementById("pass").value;
+
+  if(password === "0000"){  // ←ここ変更
+    document.getElementById("login").style.display = "none";
+    document.getElementById("main").style.display = "block";
+  } else {
+    alert("パスワードが違います");
+  }
+}
+</script>
+
+</body>
+</html>
