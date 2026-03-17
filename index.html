@@ -3,169 +3,427 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>マリア幼稚園 卒園ムービー</title>
+<title>神戸海星マリア幼稚園 チューリップ組 卒園ムービー</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
+/* ==========================================
+   全体設定・背景カラー
+========================================== */
+:root {
+  --main-pink: #ff7597;
+  --light-pink: #ffe0e6;
+  --bg-color: #fffafb;
+  --text-color: #555;
+}
+
 body {
   margin: 0;
-  font-family: "Hiragino Sans", sans-serif;
-  background: linear-gradient(135deg, #ffe4ec, #e0f7ff);
-  color: #444;
-  text-align: center;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  /* チューリップ畑の高さ分、一番下に余白を作る */
+  padding-bottom: 150px; 
+  box-sizing: border-box;
 }
 
-/* パスワード画面 */
-#login {
+/* ==========================================
+   🌷 風に揺れるチューリップアニメーション 🌷
+========================================== */
+.inline-sway {
+  display: inline-block;
+  transform-origin: bottom center;
+  animation: swayText 3s infinite alternate ease-in-out;
+}
+
+@keyframes swayText {
+  0% { transform: rotate(-15deg); }
+  100% { transform: rotate(15deg); }
+}
+
+/* 🌷 ページの一番下に配置されるチューリップ畑 🌷 */
+.tulip-field {
+  position: absolute; /* 画面固定をやめて、ページの一番下に置く */
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 150px;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.tulip {
+  position: absolute;
+  transform-origin: bottom center;
+  filter: drop-shadow(0 4px 6px rgba(255, 117, 151, 0.25));
+}
+
+@keyframes swayCustom {
+  0% { transform: rotate(var(--sway-deg-minus)); }
+  100% { transform: rotate(var(--sway-deg)); }
+}
+
+/* ==========================================
+   背景のふわふわ動く光（オーブ）
+========================================== */
+.bg-shapes {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+}
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.6;
+  animation: float 12s infinite alternate ease-in-out;
+}
+.shape1 {
+  width: 50vw; height: 50vw;
+  background: #ffc2d1;
+  top: -10%; left: -10%;
+}
+.shape2 {
+  width: 40vw; height: 40vw;
+  background: #ffb3c6;
+  bottom: -10%; right: -10%;
+  animation-duration: 15s;
+  animation-direction: alternate-reverse;
+}
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(50px, 50px) scale(1.1); }
+}
+
+/* 画面切り替えのアニメーション */
+.fade-out { animation: fadeOut 0.6s ease forwards; }
+.fade-in { animation: fadeIn 0.8s ease forwards; }
+@keyframes fadeOut { to { opacity: 0; visibility: hidden; transform: scale(0.95); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ==========================================
+   パスワード画面（ログイン）
+========================================== */
+#login-screen {
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
   height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.login-box {
-  background: white;
-  padding: 30px;
-  margin: auto;
-  border-radius: 20px;
+.login-card {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 50px 30px;
+  border-radius: 30px;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(255, 117, 151, 0.15);
+  border: 2px solid #fff;
+  position: relative;
+  z-index: 10;
+}
+
+.login-card .script-font {
+  font-family: 'Dancing Script', cursive;
+  font-size: 32px;
+  color: var(--main-pink);
+  margin-bottom: -10px;
+}
+
+.login-card h2 {
+  font-size: 22px;
+  color: #444;
+  margin-bottom: 5px;
+}
+
+.input-group {
+  margin-top: 30px;
+  position: relative;
+}
+
+input[type="password"] {
   width: 80%;
-  max-width: 350px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  padding: 15px 20px;
+  border-radius: 15px;
+  border: 2px solid var(--light-pink);
+  background: #fff;
+  font-size: 16px;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  text-align: center;
+  transition: 0.3s;
+  outline: none;
 }
 
-input {
-  width: 80%;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
+input[type="password"]:focus {
+  border-color: var(--main-pink);
+  box-shadow: 0 0 15px rgba(255, 117, 151, 0.3);
 }
 
-button {
-  margin-top: 15px;
-  padding: 10px 20px;
+.btn-enter {
+  margin-top: 30px;
+  padding: 15px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(135deg, #ff9ebb, var(--main-pink));
   border: none;
-  background: #ffb6c1;
-  color: white;
-  border-radius: 10px;
+  border-radius: 50px;
   cursor: pointer;
+  box-shadow: 0 10px 20px rgba(255, 117, 151, 0.3);
+  transition: all 0.3s ease;
+  font-family: 'Zen Maru Gothic', sans-serif;
 }
 
-button:hover {
-  background: #ff8fab;
+.btn-enter:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 25px rgba(255, 117, 151, 0.5);
 }
 
-/* メイン */
-#main {
+/* ==========================================
+   メイン画面（動画ページ）
+========================================== */
+#main-screen {
   display: none;
 }
 
-/* ヘッダー */
 .header {
-  background: #ffd6e0;
-  padding: 12px;
-  font-weight: bold;
+  text-align: center;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.03);
 }
 
-/* コンテンツ */
+.header-title {
+  font-weight: bold;
+  color: var(--main-pink);
+  font-size: 18px;
+  margin: 0;
+}
+
 .container {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
+  max-width: 850px;
+  margin: 30px auto 0;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.main-title-script {
+  font-family: 'Dancing Script', cursive;
+  font-size: 40px;
+  color: var(--main-pink);
+  margin-bottom: -5px;
+}
+
+.main-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 30px;
+  line-height: 1.4;
+}
+
+/* 動画プレイヤーの枠組み */
+.video-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  background: #000;
+  position: relative;
+  border: 6px solid #fff;
+  z-index: 10;
 }
 
 iframe {
-  width: 100%;
-  height: 500px;
-  border-radius: 16px;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   border: none;
 }
 
-.title {
-  font-size: 22px;
-  margin-top: 15px;
+/* お手紙風のメッセージ枠 */
+.message-box {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  padding: 25px;
+  background: #fff;
+  border-radius: 20px;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(255, 117, 151, 0.1);
+  border-left: 6px solid var(--main-pink);
+  line-height: 1.8;
+  font-size: 15px;
+  position: relative;
+  z-index: 10;
 }
 
-.desc {
-  margin-top: 10px;
-  padding: 15px;
-  background: #fff0f5;
-  border-radius: 12px;
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.channel {
+.message-box h3 {
+  margin-top: 0;
+  color: var(--main-pink);
+  font-size: 18px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-top: 10px;
+  gap: 8px;
 }
 
-.icon {
-  width: 50px;
-  height: 50px;
-  background: #ffb6c1;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-/* 強調用 */
 .highlight {
-  color: red;
-  text-decoration: underline;
+  color: #e83e8c;
+  font-weight: bold;
+  background: linear-gradient(transparent 60%, var(--light-pink) 60%);
 }
 
-/* スマホ */
+/* スマホ用調整 */
 @media (max-width: 600px) {
-  iframe {
-    height: 220px;
-  }
+  .main-title-script { font-size: 32px; }
+  .main-title { font-size: 20px; }
+  .message-box { font-size: 14px; padding: 20px; }
 }
 </style>
 </head>
 
 <body>
 
+<!-- 背景のふわふわ動く光 -->
+<div class="bg-shapes">
+  <div class="shape shape1"></div>
+  <div class="shape shape2"></div>
+</div>
+
 <!-- パスワード画面 -->
-<div id="login">
-  <div class="login-box">
-    <h2>🌷 卒園ムービー 🌷</h2>
-    <p>パスワードを入力してください</p>
-    <input type="password" id="pass">
-    <br>
-    <button onclick="check()">入る</button>
+<div id="login-screen" class="fade-in">
+  <div class="login-card">
+    <div class="script-font">Welcome</div>
+    <h2>2025度<br>チューリップ組<br>卒園ムービー <span class="inline-sway">🌷</span></h2>
+    <p style="font-size: 13px; color: #888; margin-bottom: 20px;">パスワードを入力してください</p>
+    
+    <div class="input-group">
+      <input type="password" id="pass" placeholder="Password" onkeypress="handleEnter(event)">
+    </div>
+    
+    <button class="btn-enter" onclick="checkPassword()">
+      動画を見る <span class="inline-sway" style="animation-delay: -1s; margin-left: 5px;">🌷</span>
+    </button>
   </div>
 </div>
 
-<!-- メイン -->
-<div id="main">
-  <div class="header">マリア幼稚園 卒園ムービー</div>
+<!-- メイン画面 -->
+<div id="main-screen">
+  <header class="header">
+    <p class="header-title"><span class="inline-sway" style="animation-delay: -0.5s;">🌷</span> 神戸海星マリア幼稚園</p>
+  </header>
 
   <div class="container">
+    <div class="main-title-script">Graduation Movie</div>
+    <h1 class="main-title">チューリップ組のみんな<br>卒園おめでとうございます <span class="inline-sway" style="animation-delay: -1.5s;">🌷</span></h1>
+    
+    <!-- 16:9比率を保つ動画枠 -->
+    <div class="video-frame">
+      <iframe src="https://drive.google.com/file/d/1M9NsuG-AaI9-kLzVgJh3G1k6JpxUccvg/preview" allow="autoplay"></iframe>
+    </div>
 
-    <iframe src="https://drive.google.com/file/d/1M9NsuG-AaI9-kLzVgJh3G1k6JpxUccvg/preview"
-    allow="autoplay"></iframe>
-
-    <div class="title">卒園おめでとうムービー 🌷</div>
-
-    <div class="desc">
-      個人情報と音楽の書作権保護のために、DVD及びQRコードは
-      <span class="highlight">ご家庭内のみ</span>
-      で大切にお楽しみ頂けると幸いです。
+    <!-- お手紙風の注意書き -->
+    <div class="message-box">
+      <h3>💌 ご家庭の皆様へ</h3>
+      <p>
+        個人情報と音楽の著作権保護のために、DVD及びQRコードは
+        <span class="highlight">ご家庭内のみ</span>
+        で大切にお楽しみ頂けると幸いです。<br>
+        子どもたちの素敵な思い出が、ご家族の皆様の心にいつまでも残りますように <span class="inline-sway">🌷</span>
+      </p>
     </div>
 
   </div>
 </div>
 
+<!-- 🌷 ページの一番下に配置されるチューリップ畑（JSで自動生成） 🌷 -->
+<div id="tulip-field" class="tulip-field"></div>
+
 <script>
-function check() {
-  var password = document.getElementById("pass").value;
+/* ==========================================
+   🌷 チューリップ畑を自動生成する魔法 🌷
+========================================== */
+function createTulips() {
+  const field = document.getElementById('tulip-field');
+  const tulipCount = window.innerWidth <= 600 ? 30 : 50; 
+
+  for (let i = 0; i < tulipCount; i++) {
+    const tulip = document.createElement('div');
+    tulip.innerText = '🌷';
+    tulip.className = 'tulip';
+    
+    const left = Math.random() * 100;
+    const size = Math.random() * 35 + 25;
+    const duration = Math.random() * 2.5 + 2.5;
+    const delay = Math.random() * -5;
+    
+    const swayDeg = Math.random() * 10 + 12;
+    tulip.style.setProperty('--sway-deg', `${swayDeg}deg`);
+    tulip.style.setProperty('--sway-deg-minus', `-${swayDeg}deg`);
+
+    tulip.style.left = `${left}vw`;
+    tulip.style.fontSize = `${size}px`;
+    tulip.style.animation = `swayCustom ${duration}s infinite alternate ease-in-out ${delay}s`;
+    
+    // チューリップが枠からはみ出ないように配置を調整
+    const bottom = (size - 25) * -0.5; 
+    tulip.style.bottom = `${bottom}px`;
+    
+    if (size < 35) {
+        tulip.style.opacity = "0.8";
+    }
+
+    field.appendChild(tulip);
+  }
+}
+
+window.onload = createTulips;
+
+/* ==========================================
+   パスワード判定
+========================================== */
+function handleEnter(event) {
+  if (event.key === 'Enter') {
+    checkPassword();
+  }
+}
+
+function checkPassword() {
+  const password = document.getElementById("pass").value;
+  const loginScreen = document.getElementById("login-screen");
+  const mainScreen = document.getElementById("main-screen");
 
   if(password === "maria"){
-    document.getElementById("login").style.display = "none";
-    document.getElementById("main").style.display = "block";
+    loginScreen.classList.add("fade-out");
+    
+    setTimeout(() => {
+      loginScreen.style.display = "none";
+      mainScreen.style.display = "block";
+      mainScreen.classList.add("fade-in");
+      
+      // 画面が切り替わった時に一番上までスクロールさせる
+      window.scrollTo(0, 0);
+    }, 600); 
+
   } else {
-    alert("パスワードが違います");
+    alert("パスワードが違います 😢\nもう一度お試しください。");
+    document.getElementById("pass").value = ""; 
   }
 }
 </script>
