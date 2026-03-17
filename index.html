@@ -28,7 +28,6 @@ body {
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
-  /* チューリップ畑の高さ分、一番下に余白を作る */
   padding-bottom: 150px; 
   box-sizing: border-box;
 }
@@ -47,9 +46,8 @@ body {
   100% { transform: rotate(15deg); }
 }
 
-/* 🌷 ページの一番下に配置されるチューリップ畑 🌷 */
 .tulip-field {
-  position: absolute; /* 画面固定をやめて、ページの一番下に置く */
+  position: absolute; 
   bottom: 0;
   left: 0;
   width: 100vw;
@@ -103,7 +101,6 @@ body {
   100% { transform: translate(50px, 50px) scale(1.1); }
 }
 
-/* 画面切り替えのアニメーション */
 .fade-out { animation: fadeOut 0.6s ease forwards; }
 .fade-in { animation: fadeIn 0.8s ease forwards; }
 @keyframes fadeOut { to { opacity: 0; visibility: hidden; transform: scale(0.95); } }
@@ -251,11 +248,24 @@ input[type="password"]:focus {
   z-index: 10;
 }
 
+/* ✨ Googleドライブへ飛ぶのを防ぐ透明なガード ✨ */
+.drive-blocker {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;  /* 右上のアイコンをすっぽり隠す幅 */
+  height: 80px; /* 右上のアイコンをすっぽり隠す高さ */
+  background: transparent;
+  z-index: 30;
+  cursor: default;
+}
+
 iframe {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
   border: none;
+  z-index: 10;
 }
 
 /* お手紙風のメッセージ枠 */
@@ -300,7 +310,6 @@ iframe {
 
 <body>
 
-<!-- 背景のふわふわ動く光 -->
 <div class="bg-shapes">
   <div class="shape shape1"></div>
   <div class="shape shape2"></div>
@@ -310,7 +319,7 @@ iframe {
 <div id="login-screen" class="fade-in">
   <div class="login-card">
     <div class="script-font">Welcome</div>
-    <h2>2025度<br>チューリップ組<br>卒園ムービー <span class="inline-sway">🌷</span></h2>
+    <h2>チューリップ組<br>卒園ムービー <span class="inline-sway">🌷</span></h2>
     <p style="font-size: 13px; color: #888; margin-bottom: 20px;">パスワードを入力してください</p>
     
     <div class="input-group">
@@ -331,14 +340,21 @@ iframe {
 
   <div class="container">
     <div class="main-title-script">Graduation Movie</div>
-    <h1 class="main-title">チューリップ組のみんな<br>卒園おめでとうございます <span class="inline-sway" style="animation-delay: -1.5s;">🌷</span></h1>
+    <h1 class="main-title">チューリップ組のみんな、<br>卒園おめでとうございます <span class="inline-sway" style="animation-delay: -1.5s;">🌷</span></h1>
     
     <!-- 16:9比率を保つ動画枠 -->
     <div class="video-frame">
-      <iframe src="https://drive.google.com/file/d/1M9NsuG-AaI9-kLzVgJh3G1k6JpxUccvg/preview" allow="autoplay"></iframe>
+      <!-- ✨ 右上のボタンを押せなくする透明なガード ✨ -->
+      <div class="drive-blocker"></div>
+      
+      <!-- ✨ どんなスマホ・PCでもフルスクリーンにできる魔法の属性を追加 ✨ -->
+      <iframe src="https://drive.google.com/file/d/1M9NsuG-AaI9-kLzVgJh3G1k6JpxUccvg/preview" 
+      allow="autoplay; fullscreen" 
+      webkitallowfullscreen 
+      mozallowfullscreen 
+      allowfullscreen></iframe>
     </div>
 
-    <!-- お手紙風の注意書き -->
     <div class="message-box">
       <h3>💌 ご家庭の皆様へ</h3>
       <p>
@@ -352,13 +368,9 @@ iframe {
   </div>
 </div>
 
-<!-- 🌷 ページの一番下に配置されるチューリップ畑（JSで自動生成） 🌷 -->
 <div id="tulip-field" class="tulip-field"></div>
 
 <script>
-/* ==========================================
-   🌷 チューリップ畑を自動生成する魔法 🌷
-========================================== */
 function createTulips() {
   const field = document.getElementById('tulip-field');
   const tulipCount = window.innerWidth <= 600 ? 30 : 50; 
@@ -381,7 +393,6 @@ function createTulips() {
     tulip.style.fontSize = `${size}px`;
     tulip.style.animation = `swayCustom ${duration}s infinite alternate ease-in-out ${delay}s`;
     
-    // チューリップが枠からはみ出ないように配置を調整
     const bottom = (size - 25) * -0.5; 
     tulip.style.bottom = `${bottom}px`;
     
@@ -395,9 +406,6 @@ function createTulips() {
 
 window.onload = createTulips;
 
-/* ==========================================
-   パスワード判定
-========================================== */
 function handleEnter(event) {
   if (event.key === 'Enter') {
     checkPassword();
@@ -417,7 +425,6 @@ function checkPassword() {
       mainScreen.style.display = "block";
       mainScreen.classList.add("fade-in");
       
-      // 画面が切り替わった時に一番上までスクロールさせる
       window.scrollTo(0, 0);
     }, 600); 
 
@@ -430,4 +437,3 @@ function checkPassword() {
 
 </body>
 </html>
-
